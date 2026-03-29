@@ -1,30 +1,82 @@
-### IntelliJ IDEA ###
+# IntelliJ IDEA / WebStorm / Android Studio
+.idea/
+*.iml
+*.iws
 out/
-!**/src/main/**/out/
-!**/src/test/**/out/
-.kotlin
+!.gitignore
+!.mvn/wrapper/maven-wrapper.jar
 
-### Eclipse ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
+# NetBeans
+nbproject/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+build/
+[!a-zA-Z0-9]*.zip
+[!a-zA-Z0-9]*.tgz
+[!a-zA-Z0-9]*.7z
+DStore/
+nbactions.xml
+nb-configuration.xml
+nbproject/private/
+build/tests/
+nbactions.xml
+nb-configuration.xml
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-
-### VS Code ###
+# VS Code
 .vscode/
 
-### Mac OS ###
+# Compiled class files
+*.class
+target/
+build/
+
+# Logs
+*.log
+logs/
+
+# macOS
 .DS_Store
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Package Files
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDE
+.classpath
+.project
+.settings/
+
+# Compiled
+*.class
+
+# Temporary
+*~
