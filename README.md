@@ -1,5 +1,12 @@
 # Sistema de Estoque - Trabalho Semestre
 
+## Alunos Desenvolvedores
+- Franssuah Amorim | RA: 10725218227 | [Perfil GitHub](https://github.com/franssuah)
+- Pedro Augusto Leite | RA: 1072615066 | [Perfil GitHub](https://github.com/ppedroal)
+- João Pedro dos Santos | RA: 1072618179 | [Perfil GitHub](https://github.com/pedrohive)
+- Henrique Bento Ribeiro | RA: 1072612758 | [Perfil GitHub](https://github.com/BENTOZ3R00)
+- Alyson Dias da Silva | RA: 1072520052 | [Perfil GitHub](https://github.com/Alysondias)
+
 ## Como Rodar
 
 ### Requisitos:
