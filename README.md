@@ -1,9 +1,10 @@
 # Sistema de Estoque - Trabalho Semestre
 
 ## Conceito
-> Nosso sistema oferece uma gestão de produtos em estoque atráves de aplicações em Java utilizando a bíblioteca JOptionPane.
->
-> O sistema é desenvolvido seguindo as recomendações propostas na avaliação A3 de Algoritimos e Programação.
+> O projeto consiste no desenvolvimento de um sistema de controle de estoque para uma empresa fictícia. 
+> O sistema permite cadastrar, consultar, alterar e excluir produtos, além de atualizar automaticamente as quantidades com base nas entradas e saídas. 
+> Também gera relatórios importantes, como a lista de preços e o balanço físico/financeiro, auxiliando no controle e planejamento do estoque.
+
 
 ## Alunos Desenvolvedores
 - Franssuah Amorim | RA: 10725218227 | [Perfil GitHub](https://github.com/franssuah)
