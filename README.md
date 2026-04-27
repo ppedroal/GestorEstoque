@@ -23,12 +23,12 @@
 ### IntelliJ IDEA (JDK 25):
 1. `File → Open →` pasta projeto
 2. Se pedir JDK: `File → Project Structure → Project SDK → Add JDK 25`
-3. Run `MenuPrincipal.java`
+3. Run `Main.java`
 
 ### NetBeans:
 1. `File → Open Project →` pasta `GestorEstoque`
-2. Run `MenuPrincipal.java`
+2. Run `Main.java`
 
 ### VSCode:
 1. "Extension Pack for Java"
-2. Clica em `MenuPrincipal.java` → Run
+2. Clica em `Main.java` → Run
