@@ -17,11 +17,9 @@ build/
 [!a-zA-Z0-9]*.tgz
 [!a-zA-Z0-9]*.7z
 DStore/
-nbactions.xml
 nb-configuration.xml
 nbproject/private/
 build/tests/
-nbactions.xml
 nb-configuration.xml
 
 # VS Code
@@ -52,13 +50,6 @@ Thumbs.db
 *.tar.gz
 *.rar
 
-# Maven
-target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
 
 # Gradle
 .gradle/
