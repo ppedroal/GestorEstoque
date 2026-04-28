@@ -1,8 +1,8 @@
-package main.java.telas;
+package telas;
 
 import javax.swing.*;
 
-import main.java.modelo.Produto;
+import modelo.Produto;
 
 public class MenuProduto {
 

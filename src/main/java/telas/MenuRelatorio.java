@@ -1,4 +1,4 @@
-package main.java.telas;
+package telas;
 
 public class MenuRelatorio {
     

@@ -1,10 +1,6 @@
 
-package main.java.telas;
+package telas;
 
-/**
- *
- * @author puddy
- */
 public class MenuMovimentacao {
     
 }

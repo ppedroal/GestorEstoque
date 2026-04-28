@@ -1,7 +1,7 @@
-package main.java.app;
+package app;
 
 import javax.swing.*;
-import  main.java.telas.MenuProduto;
+import  telas.MenuProduto;
 
 public class Main {
 
