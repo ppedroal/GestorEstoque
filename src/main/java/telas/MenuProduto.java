@@ -59,7 +59,7 @@ public class MenuProduto {
             // NOME
             while (true) {
                 produto.nome = JOptionPane.showInputDialog(
-                        "INLCUSÃO DE PRODUTO\n\nNOME: "
+                        "INCLUSÃO DE PRODUTO\n\nNOME: "
                 );
 
                 boolean existe = false;
@@ -126,7 +126,29 @@ public class MenuProduto {
     }
 
     public void consultar() {
+        String novaConsulta;
+        boolean existe = false;
 
+        do {
+            String nome = JOptionPane.showInputDialog("CONSULTAR PRODUTO\n\n DIGITE O NOME DO PRODUTO: ");
+
+            for  (int i = 0; i < total; i++) {
+                if (produtos[i].nome.equalsIgnoreCase(nome)) {
+                    JOptionPane.showMessageDialog(null,
+                            "NOME: " + produtos[i].nome + "\n" +
+                            "PREÇO: " + produtos[i].preco + "\n" +
+                            "QUANTIDADE: " + produtos[i].quantidade + produtos[i].unidade
+                    );
+                    existe = true;
+                    break;
+                }
+            }
+            if (!existe) {
+                JOptionPane.showMessageDialog(null, "Produto não encontrado!");
+            }
+
+            novaConsulta = JOptionPane.showInputDialog("DESEJA FAZER UMA NOVA CONSULTA? (S/N)");
+        } while (novaConsulta.equalsIgnoreCase("S"));
     }
 
     public void excluir() {
