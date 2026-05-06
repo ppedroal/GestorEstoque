@@ -6,21 +6,21 @@ import modelo.Produto;
 
 public class MenuProduto {
 
-    Produto[] produtos = new Produto[100];
-    int total = 0;
+    public Produto[] produtos = new Produto[100];
+    public int total = 0;
 
     public void menu() {
         String opcao;
 
         do {
             opcao = JOptionPane.showInputDialog(
-                    "Menu de Produtos\n" +
-                    "1 - Cadastrar Produto\n" +
-                    "2 - Alterar Produtos\n" +
-                    "3 - Consultar Produtos\n" +
-                    "4 - Excluir Produtos\n" +
-                    "5 - Retornar\n" +
-                    "Opção: "
+                    "Menu de Produtos\n"
+                    + "1 - Cadastrar Produto\n"
+                    + "2 - Alterar Produtos\n"
+                    + "3 - Consultar Produtos\n"
+                    + "4 - Excluir Produtos\n"
+                    + "5 - Retornar\n"
+                    + "Opção: "
             );
 
             switch (opcao) {
@@ -87,8 +87,8 @@ public class MenuProduto {
 
                 if (produto.preco > 0) {
                     break;
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Preço deve ser maior que zero!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Preço deve ser maior que zero!");
                 }
             }
 
@@ -120,7 +120,7 @@ public class MenuProduto {
             }
 
             novaInclusao = JOptionPane.showInputDialog("NOVO INCLUSÃO DE PRODUTO? (S/N)");
-        }  while (novaInclusao.equals("S"));
+        } while (novaInclusao.equals("S"));
     }
 
     public void alterar() {
@@ -136,10 +136,10 @@ public class MenuProduto {
                     Produto produto = produtos[i];
 
                     JOptionPane.showMessageDialog(null,
-                            "PRODUTO ENCONTRADO\n\n" +
-                            "NOME: " + produto.nome + "\n" +
-                            "PREÇO: " + produto.preco + "\n" +
-                            "QUANTIDADE: " + produto.quantidade + "\n"
+                            "PRODUTO ENCONTRADO\n\n"
+                            + "NOME: " + produto.nome + "\n"
+                            + "PREÇO: " + produto.preco + "\n"
+                            + "QUANTIDADE: " + produto.quantidade + "\n"
                     );
 
                     while (true) {
@@ -196,12 +196,12 @@ public class MenuProduto {
         do {
             String nome = JOptionPane.showInputDialog("CONSULTAR PRODUTO\n\n DIGITE O NOME DO PRODUTO: ");
 
-            for  (int i = 0; i < total; i++) {
+            for (int i = 0; i < total; i++) {
                 if (produtos[i].nome.equalsIgnoreCase(nome)) {
                     JOptionPane.showMessageDialog(null,
-                            "NOME: " + produtos[i].nome + "\n" +
-                            "PREÇO: R$" + produtos[i].preco + "\n" +
-                            "QUANTIDADE: " + produtos[i].quantidade + produtos[i].unidade
+                            "NOME: " + produtos[i].nome + "\n"
+                            + "PREÇO: R$" + produtos[i].preco + "\n"
+                            + "QUANTIDADE: " + produtos[i].quantidade + produtos[i].unidade
                     );
                     existe = true;
                     break;
