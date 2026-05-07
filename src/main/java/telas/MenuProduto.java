@@ -11,7 +11,7 @@ public class MenuProduto {
 
     public void menu() {
         String opcao;
-
+// Menu inicial
         do {
             opcao = JOptionPane.showInputDialog(
                     "Menu de Produtos\n"
@@ -216,7 +216,7 @@ public class MenuProduto {
                             produtos[i].unidade,
                             produtos[i].quantidade
                     );
-
+                    // layout da consulta
                     JOptionPane.showMessageDialog(null,
                             "======= DADOS DO PRODUTO =======\n\n"
                             + "Produto   : " + produtos[i].nome + "\n"

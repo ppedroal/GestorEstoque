@@ -62,7 +62,7 @@ public class MenuReajustePreco {
             return;
         }
 
-        // Monta prévia de resjuste
+                                // Monta prévia de resjuste
         StringBuilder previa = new StringBuilder();
         previa.append("PRÉVIA DO REAJUSTE (").append(percentual).append("%)\n\n");
         previa.append(String.format("%-20s %10s  →  %10s%n", "PRODUTO", "ATUAL", "NOVO"));
@@ -86,7 +86,7 @@ public class MenuReajustePreco {
             JOptionPane.showMessageDialog(null, "Reajuste cancelado!");
         }
     }
-
+                                    // reajuste individual 
     private void reajustarIndividual() {
         String novaAlteracao;
 
@@ -148,7 +148,7 @@ public class MenuReajustePreco {
 
         } while (novaAlteracao != null && novaAlteracao.equalsIgnoreCase("S"));
     }
-
+                        // Consulta de preços
     private void consultarPrecos() {
         StringBuilder lista = new StringBuilder();
         lista.append("LISTA DE PREÇOS ATUAL\n\n");
