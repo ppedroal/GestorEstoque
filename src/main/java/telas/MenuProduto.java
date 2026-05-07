@@ -96,6 +96,13 @@ public class MenuProduto {
             produto.unidade = JOptionPane.showInputDialog("UNIDADE (KG, L, UN...): ");
             produto.unidade = produto.unidade.trim().toUpperCase();
 
+            while (!produto.unidade.matches("[A-Z]+")) {
+                JOptionPane.showMessageDialog(null, "Digite apenas letras!(KG, L, UN...)");
+
+                produto.unidade = JOptionPane.showInputDialog("UNIDADE (KG, L, UN...): ");
+                produto.unidade = produto.unidade.trim().toUpperCase();
+            }
+
             // QUANTIDADE
             while (true) {
                 produto.quantidade = Integer.parseInt(
@@ -137,9 +144,10 @@ public class MenuProduto {
 
                     JOptionPane.showMessageDialog(null,
                             "PRODUTO ENCONTRADO\n\n"
-                            + "NOME: " + produto.nome + "\n"
-                            + "PREÇO: " + produto.preco + "\n"
-                            + "QUANTIDADE: " + produto.quantidade + "\n"
+                            + "Produto   : " + produto.nome + "\n"
+                            + "Preço     : R$ " + String.format("%.2f", produto.preco) + "\n"
+                            + "Unidade   : " + produto.unidade + "\n"
+                            + "Quantidade: " + formatarUnidade(produto.unidade, produto.quantidade) + "\n"
                     );
 
                     while (true) {
@@ -191,28 +199,68 @@ public class MenuProduto {
 
     public void consultar() {
         String novaConsulta;
-        boolean existe = false;
-
         do {
-            String nome = JOptionPane.showInputDialog("CONSULTAR PRODUTO\n\n DIGITE O NOME DO PRODUTO: ");
+            boolean existe = false;
+            String nome = JOptionPane.showInputDialog(
+                    "CONSULTAR PRODUTO\n\nDIGITE O NOME DO PRODUTO: "
+            );
+
+            if (nome == null) {
+                return;
+            }
 
             for (int i = 0; i < total; i++) {
-                if (produtos[i].nome.equalsIgnoreCase(nome)) {
+                if (produtos[i].nome.equalsIgnoreCase(nome.trim())) {
+
+                    String unidadeFormatada = formatarUnidade(
+                            produtos[i].unidade,
+                            produtos[i].quantidade
+                    );
+
                     JOptionPane.showMessageDialog(null,
-                            "NOME: " + produtos[i].nome + "\n"
-                            + "PREÇO: R$" + produtos[i].preco + "\n"
-                            + "QUANTIDADE: " + produtos[i].quantidade + produtos[i].unidade
+                            "======= DADOS DO PRODUTO =======\n\n"
+                            + "Produto   : " + produtos[i].nome + "\n"
+                            + "Preco     : R$ " + String.format("%.2f", produtos[i].preco) + "\n"
+                            + "Unidade   : " + produtos[i].unidade + "\n"
+                            + "Quantidade: " + unidadeFormatada + "\n"
+                            + "================================"
                     );
                     existe = true;
                     break;
                 }
             }
+
             if (!existe) {
-                JOptionPane.showMessageDialog(null, "Produto não encontrado!");
+                JOptionPane.showMessageDialog(null, "Produto nao encontrado!");
             }
 
-            novaConsulta = JOptionPane.showInputDialog("DESEJA FAZER UMA NOVA CONSULTA? (S/N)");
-        } while (novaConsulta.equalsIgnoreCase("S"));
+            novaConsulta = JOptionPane.showInputDialog(
+                    "DESEJA FAZER UMA NOVA CONSULTA? (S/N)"
+            );
+
+        } while (novaConsulta != null && novaConsulta.equalsIgnoreCase("S"));
+    }
+//  Formata a quantidade de acordo com a unidade
+
+    private String formatarUnidade(String unidade, int quantidade) {
+        switch (unidade.toUpperCase()) {
+            case "KG":
+                return quantidade + " KG (Quilogramas)";
+            case "G":
+                return quantidade + " G (Gramas)";
+            case "L":
+                return quantidade + " L (Litros)";
+            case "ML":
+                return quantidade + " ML (Mililitros)";
+            case "UN":
+                return quantidade + " UN (Unidades)";
+            case "CX":
+                return quantidade + " CX (Caixas)";
+            case "PC":
+                return quantidade + " PC (Pacotes)";
+            default:
+                return quantidade + " " + unidade;
+        }
     }
 
     public void excluir() {
