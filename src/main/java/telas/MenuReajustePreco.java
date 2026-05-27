@@ -246,7 +246,6 @@ public class MenuReajustePreco {
 
     /**
      * Calcula o novo preço aplicando o percentual de reajuste.
-     * Fórmula: precoAtual × (1 + percentual ÷ 100)
      */
     private double calcularNovoPreco(double precoAtual, double percentual) {
         return precoAtual * (1 + percentual / 100.0);
