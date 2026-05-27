@@ -62,15 +62,16 @@ public class MenuRelatorio {
 
         StringBuilder lista = new StringBuilder();
         lista.append("RELATÓRIO: LISTA DE PREÇOS\n\n");
-        lista.append(String.format("%-4s %-20s %-10s %10s%n", "Nº", "PRODUTO", "UNIDADE", "PREÇO"));
-        lista.append("─".repeat(48)).append("\n");
+        lista.append(String.format("%-4s %-20s %-10s %12s%n", "Nº", "PRODUTO", "UNIDADE", "PREÇO"));
+        lista.append("─".repeat(50)).append("\n");
 
         for (int i = 0; i < total; i++) {
-            lista.append(String.format("%-4d %-20s %-10s R$%8.2f%n",
-                    i + 1, ordenados[i].nome, ordenados[i].unidade, ordenados[i].preco));
+            lista.append(String.format("%-4d %-20s %-10s %12s%n",
+                    i + 1, ordenados[i].nome, ordenados[i].unidade,
+                    String.format("R$ %.2f", ordenados[i].preco)));
         }
 
-        lista.append("─".repeat(48)).append("\n");
+        lista.append("─".repeat(50)).append("\n");
         lista.append("Total de produtos: ").append(total);
 
         JOptionPane.showMessageDialog(null, lista.toString());
@@ -110,13 +111,15 @@ public class MenuRelatorio {
         for (int i = 0; i < total; i++) {
             double valorTotal = ordenados[i].preco * ordenados[i].quantidade;
             totalGeral += valorTotal;
-            relatorio.append(String.format("%-4d %-20s R$%8.2f %6d    R$%9.2f%n",
-                    i + 1, ordenados[i].nome, ordenados[i].preco,
-                    ordenados[i].quantidade, valorTotal));
+            relatorio.append(String.format("%-4d %-20s %12s %6d %14s%n",
+                    i + 1, ordenados[i].nome,
+                    String.format("R$ %.2f", ordenados[i].preco),
+                    ordenados[i].quantidade,
+                    String.format("R$ %.2f", valorTotal)));
         }
 
         relatorio.append("─".repeat(60)).append("\n");
-        relatorio.append(String.format("%44s R$%9.2f%n", "TOTAL:", totalGeral));
+        relatorio.append(String.format("%44s %14s%n", "TOTAL:", String.format("R$ %.2f", totalGeral)));
         relatorio.append("\nTotal de produtos: ").append(total);
 
         JOptionPane.showMessageDialog(null, relatorio.toString());
