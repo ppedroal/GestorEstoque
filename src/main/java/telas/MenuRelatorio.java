@@ -58,6 +58,8 @@ public class MenuRelatorio {
 
     // SUB ROTINAS
     private void listaDePrecos() {
+        Produto[] ordenados = ordenarAlfabeticamente();
+
         StringBuilder lista = new StringBuilder();
         lista.append("RELATÓRIO: LISTA DE PREÇOS\n\n");
         lista.append(String.format("%-4s %-20s %-10s %10s%n", "Nº", "PRODUTO", "UNIDADE", "PREÇO"));
@@ -65,7 +67,7 @@ public class MenuRelatorio {
 
         for (int i = 0; i < total; i++) {
             lista.append(String.format("%-4d %-20s %-10s R$%8.2f%n",
-                    i + 1, produtos[i].nome, produtos[i].unidade, produtos[i].preco));
+                    i + 1, ordenados[i].nome, ordenados[i].unidade, ordenados[i].preco));
         }
 
         lista.append("─".repeat(48)).append("\n");
@@ -75,6 +77,8 @@ public class MenuRelatorio {
     }
 
     private void balancoFisico() {
+        Produto[] ordenados = ordenarAlfabeticamente();
+
         StringBuilder relatorio = new StringBuilder();
         relatorio.append("RELATÓRIO: BALANÇO FÍSICO\n\n");
         relatorio.append(String.format("%-4s %-20s %s%n", "Nº", "PRODUTO", "QUANTIDADE"));
@@ -82,8 +86,8 @@ public class MenuRelatorio {
 
         for (int i = 0; i < total; i++) {
             relatorio.append(String.format("%-4d %-20s %s%n",
-                    i + 1, produtos[i].nome,
-                    formatarUnidade(produtos[i].unidade, produtos[i].quantidade)));
+                    i + 1, ordenados[i].nome,
+                    formatarUnidade(ordenados[i].unidade, ordenados[i].quantidade)));
         }
 
         relatorio.append("─".repeat(44)).append("\n");
@@ -93,6 +97,8 @@ public class MenuRelatorio {
     }
 
     private void balancoFinanceiro() {
+        Produto[] ordenados = ordenarAlfabeticamente();
+
         StringBuilder relatorio = new StringBuilder();
         relatorio.append("RELATÓRIO: BALANÇO FINANCEIRO\n\n");
         relatorio.append(String.format("%-4s %-20s %12s %6s %14s%n",
@@ -102,11 +108,11 @@ public class MenuRelatorio {
         double totalGeral = 0;
 
         for (int i = 0; i < total; i++) {
-            double valorTotal = produtos[i].preco * produtos[i].quantidade;
+            double valorTotal = ordenados[i].preco * ordenados[i].quantidade;
             totalGeral += valorTotal;
             relatorio.append(String.format("%-4d %-20s R$%8.2f %6d    R$%9.2f%n",
-                    i + 1, produtos[i].nome, produtos[i].preco,
-                    produtos[i].quantidade, valorTotal));
+                    i + 1, ordenados[i].nome, ordenados[i].preco,
+                    ordenados[i].quantidade, valorTotal));
         }
 
         relatorio.append("─".repeat(60)).append("\n");
@@ -114,6 +120,28 @@ public class MenuRelatorio {
         relatorio.append("\nTotal de produtos: ").append(total);
 
         JOptionPane.showMessageDialog(null, relatorio.toString());
+    }
+
+    // Retorna uma cópia do vetor de produtos ordenada alfabeticamente pelo nome.
+    // Não altera o vetor original — a ordem de cadastro é preservada no sistema.
+    private Produto[] ordenarAlfabeticamente() {
+        Produto[] ordenados = new Produto[total];
+
+        for (int i = 0; i < total; i++) {
+            ordenados[i] = produtos[i];
+        }
+
+        for (int i = 0; i < total - 1; i++) {
+            for (int j = 0; j < total - 1 - i; j++) {
+                if (ordenados[j].nome.compareToIgnoreCase(ordenados[j + 1].nome) > 0) {
+                    Produto temp = ordenados[j];
+                    ordenados[j] = ordenados[j + 1];
+                    ordenados[j + 1] = temp;
+                }
+            }
+        }
+
+        return ordenados;
     }
 
     private String formatarUnidade(String unidade, int quantidade) {
