@@ -1,7 +1,7 @@
 package telas;
 
 import modelo.Produto;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 public class MenuRelatorio {
 
@@ -74,7 +74,10 @@ public class MenuRelatorio {
         lista.append("─".repeat(50)).append("\n");
         lista.append("Total de produtos: ").append(total);
 
-        JOptionPane.showMessageDialog(null, lista.toString());
+        JTextArea area = new JTextArea(lista.toString());
+        area.setFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 12));
+        area.setEditable(false);
+        JOptionPane.showMessageDialog(null, area);
     }
 
     private void balancoFisico() {
@@ -94,7 +97,10 @@ public class MenuRelatorio {
         relatorio.append("─".repeat(44)).append("\n");
         relatorio.append("Total de produtos: ").append(total);
 
-        JOptionPane.showMessageDialog(null, relatorio.toString());
+        JTextArea area = new JTextArea(relatorio.toString());
+        area.setFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 12));
+        area.setEditable(false);
+        JOptionPane.showMessageDialog(null, area);
     }
 
     private void balancoFinanceiro() {
@@ -122,7 +128,10 @@ public class MenuRelatorio {
         relatorio.append(String.format("%44s %14s%n", "TOTAL:", String.format("R$ %.2f", totalGeral)));
         relatorio.append("\nTotal de produtos: ").append(total);
 
-        JOptionPane.showMessageDialog(null, relatorio.toString());
+        JTextArea area = new JTextArea(relatorio.toString());
+        area.setFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 12));
+        area.setEditable(false);
+        JOptionPane.showMessageDialog(null, area);
     }
 
     // Retorna uma cópia do vetor de produtos ordenada alfabeticamente pelo nome.
