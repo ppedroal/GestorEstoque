@@ -20,7 +20,7 @@ public class MenuMovimentacao {
                     + "1 - Entrada\n"
                     + "2 - Saída\n"
                     + "0 - Retornar\n\n"
-                    + "Opção:"
+                    + "Opção: "
             );
 
             if (opcao == null) {
@@ -33,7 +33,7 @@ public class MenuMovimentacao {
                     entrada();
                     break;
 
-               case "2":
+                case "2":
                     saida();
                     break;
 
@@ -50,10 +50,6 @@ public class MenuMovimentacao {
 
     public void entrada() {
 
-        /*
-  * Método responsável pela entrada
-  * de produtos no estoque.
-         */
         if (total == 0) {
             JOptionPane.showMessageDialog(null,
                     "Nenhum produto cadastrado!\n"
@@ -76,7 +72,6 @@ public class MenuMovimentacao {
 
             boolean existe = false;
 
-            // PROCURA O PRODUTO NO VETOR
             for (int i = 0; i < total; i++) {
 
                 if (produtos[i].nome.equalsIgnoreCase(nome.trim())) {
@@ -161,129 +156,126 @@ public class MenuMovimentacao {
         } while (novaEntrada != null
                 && novaEntrada.equalsIgnoreCase("S"));
     }
+
     public void saida() {
+
         if (total == 0) {
+            JOptionPane.showMessageDialog(null,
+                    "Nenhum produto cadastrado!\n"
+                    + "Cadastre produtos antes de registrar saídas.");
+            return;
+        }
 
-    JOptionPane.showMessageDialog(null,
-            "Nenhum produto cadastrado!\n"
-            + "Cadastre produtos antes de registrar saídas.");
-
-    return;
-}   
         String novaSaida;
 
         do {
 
-        String nome = JOptionPane.showInputDialog(
-                "SAÍDA DE PRODUTO\n\n"
-                + "DIGITE O NOME DO PRODUTO:"
-        );
+            String nome = JOptionPane.showInputDialog(
+                    "SAÍDA DE PRODUTO\n\n"
+                    + "DIGITE O NOME DO PRODUTO:"
+            );
 
-        if (nome == null) {
-            break;
-        }
-
-        boolean existe = false;
-
-        for (int i = 0; i < total; i++) {
-
-            if (produtos[i].nome.equalsIgnoreCase(nome.trim())) {
-
-                Produto produto = produtos[i];
-
-                JOptionPane.showMessageDialog(null,
-                        "PRODUTO ENCONTRADO\n\n"
-                        + "Produto: " + produto.nome + "\n"
-                        + "Preço: R$ " + String.format("%.2f", produto.preco) + "\n"
-                        + "Unidade: " + produto.unidade + "\n"
-                        + "Quantidade Atual: " + produto.quantidade
-                );
-                int quantidadeSaida;
-
-// VALIDA A QUANTIDADE
-while (true) {
-
-    try {
-
-        quantidadeSaida = Integer.parseInt(
-                JOptionPane.showInputDialog(
-                        "QUANTIDADE DE SAÍDA:"
-                )
-        );
-
-        if (quantidadeSaida > 0) {
-            break;
-        }
-
-        JOptionPane.showMessageDialog(null,
-                "Digite uma quantidade válida!");
-
-    } catch (NumberFormatException e) {
-
-        JOptionPane.showMessageDialog(null,
-                "Digite apenas números!");
-    }
-}
-
-// VERIFICA ESTOQUE
-if (quantidadeSaida > produto.quantidade) {
-
-    JOptionPane.showMessageDialog(null,
-            "ESTOQUE INSUFICIENTE!\n\n"
-            + "Quantidade disponível: "
-            + produto.quantidade
-    );
-
-} else {
-
-    String confirma = JOptionPane.showInputDialog(
-            "CONFIRMA SAÍDA?\n\n"
-            + "Produto             : " + produto.nome + "\n"
-            + "Quantidade retirada : " + quantidadeSaida + "\n"
-            + "Estoque atual       : " + produto.quantidade + "\n"
-            + "Estoque após saída  : "
-            + (produto.quantidade - quantidadeSaida)
-            + "\n\n(S/N)"
-    );
-
-    if (confirma != null
-            && confirma.equalsIgnoreCase("S")) {
-
-        produto.quantidade -= quantidadeSaida;
-
-        JOptionPane.showMessageDialog(null,
-                "SAÍDA REALIZADA COM SUCESSO!\n\n"
-                + "Novo estoque: "
-                + produto.quantidade
-        );
-
-    } else {
-
-        JOptionPane.showMessageDialog(null,
-                "SAÍDA CANCELADA!");
-    }
-}
-
-                existe = true;
+            if (nome == null) {
                 break;
             }
-        }
-        if (!existe) {
 
-    JOptionPane.showMessageDialog(null,
-            "Produto não encontrado!");
+            boolean existe = false;
+
+            for (int i = 0; i < total; i++) {
+
+                if (produtos[i].nome.equalsIgnoreCase(nome.trim())) {
+
+                    Produto produto = produtos[i];
+
+                    JOptionPane.showMessageDialog(null,
+                            "PRODUTO ENCONTRADO\n\n"
+                            + "Produto: " + produto.nome + "\n"
+                            + "Preço: R$ " + String.format("%.2f", produto.preco) + "\n"
+                            + "Unidade: " + produto.unidade + "\n"
+                            + "Quantidade Atual: " + produto.quantidade
+                    );
+
+                    int quantidadeSaida;
+
+                    // VALIDA A QUANTIDADE
+                    while (true) {
+
+                        try {
+
+                            quantidadeSaida = Integer.parseInt(
+                                    JOptionPane.showInputDialog(
+                                            "QUANTIDADE DE SAÍDA:"
+                                    )
+                            );
+
+                            if (quantidadeSaida > 0) {
+                                break;
+                            }
+
+                            JOptionPane.showMessageDialog(null,
+                                    "Digite uma quantidade válida!");
+
+                        } catch (NumberFormatException e) {
+
+                            JOptionPane.showMessageDialog(null,
+                                    "Digite apenas números!");
+                        }
+                    }
+
+                    // VERIFICA ESTOQUE
+                    if (quantidadeSaida > produto.quantidade) {
+
+                        JOptionPane.showMessageDialog(null,
+                                "ESTOQUE INSUFICIENTE!\n\n"
+                                + "Quantidade disponível: "
+                                + produto.quantidade
+                        );
+
+                    } else {
+
+                        String confirma = JOptionPane.showInputDialog(
+                                "CONFIRMA SAÍDA?\n\n"
+                                + "Produto             : " + produto.nome + "\n"
+                                + "Quantidade retirada : " + quantidadeSaida + "\n"
+                                + "Estoque atual       : " + produto.quantidade + "\n"
+                                + "Estoque após saída  : "
+                                + (produto.quantidade - quantidadeSaida)
+                                + "\n\n(S/N)"
+                        );
+
+                        if (confirma != null && confirma.equalsIgnoreCase("S")) {
+
+                            produto.quantidade -= quantidadeSaida;
+
+                            JOptionPane.showMessageDialog(null,
+                                    "SAÍDA REALIZADA COM SUCESSO!\n\n"
+                                    + "Novo estoque: "
+                                    + produto.quantidade
+                            );
+
+                        } else {
+
+                            JOptionPane.showMessageDialog(null,
+                                    "SAÍDA CANCELADA!");
+                        }
+                    }
+
+                    existe = true;
+                    break;
+                }
+            }
+
+            if (!existe) {
+
+                JOptionPane.showMessageDialog(null,
+                        "Produto não encontrado!");
+            }
+
+            novaSaida = JOptionPane.showInputDialog(
+                    "DESEJA FAZER UMA NOVA SAÍDA? (S/N)"
+            );
+
+        } while (novaSaida != null
+                && novaSaida.equalsIgnoreCase("S"));
+    }
 }
-
-novaSaida = JOptionPane.showInputDialog(
-        "DESEJA FAZER UMA NOVA SAÍDA? (S/N)"
-);
-
-} while (novaSaida != null
-        && novaSaida.equalsIgnoreCase("S"));
-
-    
-}
-}
-
-    
-

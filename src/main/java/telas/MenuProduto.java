@@ -11,15 +11,15 @@ public class MenuProduto {
 
     public void menu() {
         String opcao;
-// Menu inicial
+
         do {
             opcao = JOptionPane.showInputDialog(
-                    "Menu de Produtos\n"
+                    "MENU DE PRODUTOS\n\n"
                     + "1 - Cadastrar Produto\n"
                     + "2 - Alterar Produtos\n"
                     + "3 - Consultar Produtos\n"
                     + "4 - Excluir Produtos\n"
-                    + "5 - Retornar\n"
+                    + "5 - Retornar\n\n"
                     + "Opção: "
             );
 
@@ -58,18 +58,16 @@ public class MenuProduto {
 
             // NOME - Refatorado com travas de segurança e validação de duplicidade
             while (true) {
-                // 1- Captura a entrada interrompendo fechamentos acidentais da janela
                 String entradaNome = JOptionPane.showInputDialog(
                         "INCLUSÃO DE PRODUTO\n\nNOME: "
                 );
 
-                // Trava Nº 1: Prevenção contra NullPointerException. 
+                // Trava Nº 1: Prevenção contra NullPointerException.
                 // Caso o usuário clicar em "Cancelar" ou fechar no "X", o método é abortado.
                 if (entradaNome == null) {
                     return;
                 }
 
-                // Remove espaços vazios acidentais antes e depois da palavra.
                 entradaNome = entradaNome.trim();
 
                 // Trava Nº 2: Impede o cadastro de produtos com o nome em branco.
@@ -78,48 +76,40 @@ public class MenuProduto {
                             "NOME INVÁLIDO!\nO nome do produto não pode ficar em branco.",
                             "Erro de Validação",
                             JOptionPane.ERROR_MESSAGE);
-                    continue; // Retorna ao início do laço while para pedir novamente.
+                    continue;
                 }
 
                 // Trava Nº 3: Regra de Negócio - Verificação de Duplicidade.
                 boolean existe = false;
 
-                // Varre o vetor apenas até o limite de itens cadastrados (total), garantindo otimização.
                 for (int i = 0; i < total; i++) {
-                    // equalsIgnoreCase corrige situações onde "Maçã" e "maçã" são tratados como o mesmo item.
                     if (produtos[i].nome.equalsIgnoreCase(entradaNome)) {
                         existe = true;
-                        break; // Encerra a busca imediatamente ao encontrar a primeira duplicata.
+                        break;
                     }
                 }
 
-                // Feedback responsivo de acordo com o resultado da busca.
                 if (existe) {
                     JOptionPane.showMessageDialog(null,
                             "PRODUTO DUPLICADO!\nJá existe um produto cadastrado com este nome.",
                             "Erro de Validação",
                             JOptionPane.WARNING_MESSAGE);
                 } else {
-                    // Passou em todas as validações: o nome é limpo, único e seguro para o sistema.
                     produto.nome = entradaNome;
-                    break; // Libera o usuário do ciclo de repetição, avançando para a próxima etapa do cadastro.
+                    break;
                 }
             }
 
             // PREÇO - Refatorado
             while (true) {
-                // 1- Captura a entrada do usuário como texto puro sem tentar converter de imediato.
                 String entradaPreco = JOptionPane.showInputDialog("INCLUSÃO DE PRODUTO\n\nPREÇO: ");
 
-                // 2- Delega a conversão e validação (abrange também contra letras, nulos e valores vazios).
-                double precoValidado = util.ValidadorUtil.parseEValidarPreco(entradaPreco);
+                double precoValidado = parseEValidarPreco(entradaPreco);
 
-                // 3- Aplica a Regra de Negócio: -1.0 significa que o Validador interceptou um erro.
                 if (precoValidado != -1.0) {
-                    produto.preco = precoValidado; // Atualiza o preço com um valor limpo e seguro.
-                    break; // Libera o usuário do ciclo de repetição.
+                    produto.preco = precoValidado;
+                    break;
                 } else {
-                    // 4- Feedback responsivo informando como o usuário deve proceder de forma correta.
                     JOptionPane.showMessageDialog(null,
                             "PREÇO INVÁLIDO!\n"
                             + "Por favor, introduza um valor numérico maior que zero (Ex: 10.50).",
@@ -141,18 +131,14 @@ public class MenuProduto {
 
             // QUANTIDADE - Refatorado
             while (true) {
-                // 1- Captura a entrada do usuário como texto puro.
                 String entradaQtd = JOptionPane.showInputDialog("INCLUSÃO DE PRODUTO\n\nQUANTIDADE: ");
 
-                // 2- Delega a conversão e validação para a nossa classe utilitária.
-                int qtdValidada = util.ValidadorUtil.parseEValidarQuantidade(entradaQtd);
+                int qtdValidada = parseEValidarQuantidade(entradaQtd);
 
-                // 3- Aplica a Regra de Negócio: -1 significa que o Validador encontrou um erro.
                 if (qtdValidada != -1) {
-                    produto.quantidade = qtdValidada; // Atualiza com o valor seguro.
-                    break; // Libera o usuário do ciclo de repetição.
+                    produto.quantidade = qtdValidada;
+                    break;
                 } else {
-                    // 4- Feedback responsivo e educativo.
                     JOptionPane.showMessageDialog(null,
                             "QUANTIDADE INVÁLIDA!\n"
                             + "Por favor, introduza um número inteiro maior ou igual a zero.",
@@ -161,8 +147,6 @@ public class MenuProduto {
                 }
             }
 
-            // CONFIRMACAO
-            // Confirmação com todos os dados do produto
             String confirma = JOptionPane.showInputDialog(
                     "─────────────────────────────────\n"
                     + "      CONFIRMA A INCLUSÃO?\n"
@@ -207,20 +191,14 @@ public class MenuProduto {
 
                     // NOVO PREÇO - Refatorado
                     while (true) {
-
-                        // 1- Captura a entrada do usuário como texto puro sem tentar converter de imediato.
                         String entradaNovoPreco = JOptionPane.showInputDialog("NOVO PREÇO: ");
 
-                        // 2- Delega a conversão e validação (abrange também contra letras, nulos e valores vazios).
-                        double precoValidado = util.ValidadorUtil.parseEValidarPreco(entradaNovoPreco);
+                        double precoValidado = parseEValidarPreco(entradaNovoPreco);
 
-                        // 3- Aplica a Regra de Negócio: -1.0 significa que o Validador interceptou um erro.
                         if (precoValidado != -1.0) {
-                            produto.preco = precoValidado; // Atualiza o preço com um valor limpo e seguro.
-                            break; // Libera o usuário do ciclo de repetição.
+                            produto.preco = precoValidado;
+                            break;
                         } else {
-
-                            // 4- Feedback responsivo informando como o usuário deve proceder de forma correta.
                             JOptionPane.showMessageDialog(null,
                                     "PREÇO INVÁLIDO!\n"
                                     + "Por favor, introduza um valor numérico maior que zero.",
@@ -233,18 +211,14 @@ public class MenuProduto {
 
                     // NOVA QUANTIDADE - Refatorado
                     while (true) {
-                        // 1- Captura a entrada do usuário como texto puro.
                         String entradaNovaQtd = JOptionPane.showInputDialog("NOVA QUANTIDADE: ");
 
-                        // 2- Delega a conversão e validação.
-                        int qtdValidada = util.ValidadorUtil.parseEValidarQuantidade(entradaNovaQtd);
+                        int qtdValidada = parseEValidarQuantidade(entradaNovaQtd);
 
-                        // 3- Avalia o retorno do Validador.
                         if (qtdValidada != -1) {
                             produto.quantidade = qtdValidada;
                             break;
                         } else {
-                            // 4- Feedback de erro padrão.
                             JOptionPane.showMessageDialog(null,
                                     "QUANTIDADE INVÁLIDA!\n"
                                     + "Por favor, introduza um número inteiro maior ou igual a zero.",
@@ -291,7 +265,7 @@ public class MenuProduto {
                             produtos[i].unidade,
                             produtos[i].quantidade
                     );
-                    // layout da consulta
+
                     JOptionPane.showMessageDialog(null,
                             "======= DADOS DO PRODUTO =======\n\n"
                             + "Produto   : " + produtos[i].nome + "\n"
@@ -314,28 +288,6 @@ public class MenuProduto {
             );
 
         } while (novaConsulta != null && novaConsulta.equalsIgnoreCase("S"));
-    }
-//  Formata a quantidade de acordo com a unidade
-
-    private String formatarUnidade(String unidade, int quantidade) {
-        switch (unidade.toUpperCase()) {
-            case "KG":
-                return quantidade + " KG (Quilogramas)";
-            case "G":
-                return quantidade + " G (Gramas)";
-            case "L":
-                return quantidade + " L (Litros)";
-            case "ML":
-                return quantidade + " ML (Mililitros)";
-            case "UN":
-                return quantidade + " UN (Unidades)";
-            case "CX":
-                return quantidade + " CX (Caixas)";
-            case "PC":
-                return quantidade + " PC (Pacotes)";
-            default:
-                return quantidade + " " + unidade;
-        }
     }
 
     public void excluir() {
@@ -398,7 +350,6 @@ public class MenuProduto {
 
                         if (confirma != null && confirma.equalsIgnoreCase("S")) {
 
-                            // REMOVE APENAS UMA PARTE
                             if (quantidadeExcluir < produto.quantidade) {
 
                                 produto.quantidade -= quantidadeExcluir;
@@ -409,8 +360,7 @@ public class MenuProduto {
                                         + produto.quantidade
                                 );
 
-                            } // REMOVE O PRODUTO INTEIRO
-                            else {
+                            } else {
 
                                 for (int j = i; j < total - 1; j++) {
                                     produtos[j] = produtos[j + 1];
@@ -445,5 +395,82 @@ public class MenuProduto {
             }
 
         } while (novaExclusao.equalsIgnoreCase("S"));
+    }
+
+    private String formatarUnidade(String unidade, int quantidade) {
+        switch (unidade.toUpperCase()) {
+            case "KG":
+                return quantidade + " KG (Quilogramas)";
+            case "G":
+                return quantidade + " G (Gramas)";
+            case "L":
+                return quantidade + " L (Litros)";
+            case "ML":
+                return quantidade + " ML (Mililitros)";
+            case "UN":
+                return quantidade + " UN (Unidades)";
+            case "CX":
+                return quantidade + " CX (Caixas)";
+            case "PC":
+                return quantidade + " PC (Pacotes)";
+            default:
+                return quantidade + " " + unidade;
+        }
+    }
+
+    // ─── VALIDADORES ──────────────────────────────────────────────────────────
+
+    /* Processar a entrada do usuário, adaptar a formatação, converter para Double
+    e validar se o valor é maior que zero. */
+    private double parseEValidarPreco(String entrada) {
+        // Trava Nº 1: Se o usuário clicar em cancelar na janela ou enviar caractere vazio.
+        if (entrada == null || entrada.trim().isEmpty()) {
+            return -1.0;
+        }
+
+        try {
+            /* Nosso usuário típico será brasileiro, cujo hábito majoritário consiste em usar
+            vírgulas para separar decimais em valores monetários e a pontuação exigida pelo
+            Java é o padrão americano que utiliza ponto. */
+            String entradaCorrigida = entrada.replace(",", ".").trim();
+            double preco = Double.parseDouble(entradaCorrigida);
+
+            // Trava Nº 2: Regra de Negócio = O preço DEVE ser maior que zero.
+            if (preco > 0) {
+                return preco;
+            } else {
+                return -1.0;
+            }
+
+        } catch (NumberFormatException e) {
+            /* Trava Nº 3: Se o usuário digitar letras ("vinte reais") em vez de "20,00" ou
+            "20.00", a exceção é capturada e o método retorna -1.0. */
+            return -1.0;
+        }
+    }
+
+    /* Tratar a entrada do usuário, converter para Inteiro e validar se a
+    quantidade é maior ou igual a zero. */
+    private int parseEValidarQuantidade(String entrada) {
+        // Trava Nº 1: Prevenção contra NullPointerException e NumberFormatException.
+        if (entrada == null || entrada.trim().isEmpty()) {
+            return -1;
+        }
+
+        try {
+            int quantidade = Integer.parseInt(entrada.trim());
+
+            // Trava Nº 2: Regra de Negócio = A quantidade deve ser maior ou igual a zero.
+            if (quantidade >= 0) {
+                return quantidade;
+            } else {
+                return -1;
+            }
+
+        } catch (NumberFormatException e) {
+            /* Trava Nº 3: Interceptar falhas com letras ou números decimais, já que a
+            quantidade de peças de estoque deve ser apenas um número inteiro. */
+            return -1;
+        }
     }
 }

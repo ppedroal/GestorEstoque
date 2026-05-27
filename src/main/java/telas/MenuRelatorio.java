@@ -1,6 +1,6 @@
 package telas;
 
-import modelo.Produto; // Importando os dados armazenados na memória.
+import modelo.Produto;
 import javax.swing.JOptionPane;
 
 public class MenuRelatorio {
@@ -18,13 +18,13 @@ public class MenuRelatorio {
         if (total == 0) {
             JOptionPane.showMessageDialog(null,
                     "Nenhum produto cadastrado!\n"
-                    + "Cadastre produtos antes de gerar relatórios."); // Ou seja, caso não tenha produto cadastrado, vai aparecer essas mensagens.
-            return; // Aqui o sistema vai direcionar para a tela 1.0.
+                    + "Cadastre produtos antes de gerar relatórios.");
+            return;
         }
 
         String opcao;
 
-        do { // Caso existir um produto ou mais, surgirá o menu de relatórios.
+        do {
             opcao = JOptionPane.showInputDialog(
                     "MENU RELATÓRIOS\n\n"
                     + "1 - Lista de Preços\n"
@@ -34,13 +34,12 @@ public class MenuRelatorio {
                     + "Opção: "
             );
 
-            if (opcao == null) { // Caso não coloque valor, retorna ao menu.
+            if (opcao == null) {
                 return;
             }
 
-            switch (opcao.trim()) { // Já que opcao é uma string, o .trim remove espaços em branco do início e do fim, evitando a quebra do sistema.
+            switch (opcao.trim()) {
 
-                //Nas cases optei por usar -> (setinha) para não ter que utilziar o break, na minha opnião ficou mais bonito.
                 case "1" ->
                     listaDePrecos();
                 case "2" ->
@@ -59,12 +58,12 @@ public class MenuRelatorio {
 
     // SUB ROTINAS
     private void listaDePrecos() {
-        StringBuilder lista = new StringBuilder(); // StringBuilder é a classe que permite a manipulação do valor da variável. / Aqui estamos pegando a variável lista e transformando em um objeto.
-        lista.append("RELATÓRIO: LISTA DE PREÇOS\n\n"); // .append é um método que adiciona texto no final da string que está sendo construido.
-        lista.append(String.format("%-4s %-20s %-10s %10s%n", "Nº", "PRODUTO", "UNIDADE", "PREÇO")); //formatação utilizada para que a janela se pareça com uma tabela.
-        lista.append("─".repeat(48)).append("\n"); // Aqui ele repete 48x o ─ (alt + 192)
+        StringBuilder lista = new StringBuilder();
+        lista.append("RELATÓRIO: LISTA DE PREÇOS\n\n");
+        lista.append(String.format("%-4s %-20s %-10s %10s%n", "Nº", "PRODUTO", "UNIDADE", "PREÇO"));
+        lista.append("─".repeat(48)).append("\n");
 
-        for (int i = 0; i < total; i++) { //Estrutura de repetição, caso o valor da variável total
+        for (int i = 0; i < total; i++) {
             lista.append(String.format("%-4d %-20s %-10s R$%8.2f%n",
                     i + 1, produtos[i].nome, produtos[i].unidade, produtos[i].preco));
         }
@@ -90,7 +89,7 @@ public class MenuRelatorio {
         relatorio.append("─".repeat(44)).append("\n");
         relatorio.append("Total de produtos: ").append(total);
 
-        JOptionPane.showMessageDialog(null, relatorio.toString()); // O JOptionPane trabalha somente com a String, nesse caso, convertemos o objeto para uma String.
+        JOptionPane.showMessageDialog(null, relatorio.toString());
     }
 
     private void balancoFinanceiro() {

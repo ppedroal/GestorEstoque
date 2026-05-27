@@ -25,7 +25,7 @@ public class Main {
                     + "2 - Movimentação de estoque\n"
                     + "3 - Reajuste de preços\n"
                     + "4 - Relatórios\n"
-                    + "0 - Sair\n"
+                    + "0 - Sair\n\n"
                     + "Opção: "
             );
 
@@ -63,9 +63,5 @@ public class Main {
                     JOptionPane.showMessageDialog(null, "Opção inválida!");
             }
         } while (!opcao.equals("0"));
-    }
-
-    private static void MenuReajustePreco() {
-        throw new UnsupportedOperationException("Not supported yet."); 
     }
 }
