@@ -90,26 +90,19 @@ public class MenuMovimentacao {
 
                     // VALIDA A QUANTIDADE
                     while (true) {
+                        String entradaQtd = JOptionPane.showInputDialog("QUANTIDADE DE ENTRADA:");
 
-                        try {
+                        int qtdValidada = parseEValidarQuantidade(entradaQtd);
 
-                            quantidadeEntrada = Integer.parseInt(
-                                    JOptionPane.showInputDialog(
-                                            "QUANTIDADE DE ENTRADA:"
-                                    )
-                            );
-
-                            if (quantidadeEntrada > 0) {
-                                break;
-                            }
-
+                        if (qtdValidada > 0) {
+                            quantidadeEntrada = qtdValidada;
+                            break;
+                        } else {
                             JOptionPane.showMessageDialog(null,
-                                    "Digite uma quantidade válida!");
-
-                        } catch (NumberFormatException e) {
-
-                            JOptionPane.showMessageDialog(null,
-                                    "Digite apenas números!");
+                                    "QUANTIDADE INVÁLIDA!\n"
+                                    + "Por favor, introduza um número inteiro maior que zero.",
+                                    "Erro de Validação",
+                                    JOptionPane.ERROR_MESSAGE);
                         }
                     }
 
@@ -199,26 +192,19 @@ public class MenuMovimentacao {
 
                     // VALIDA A QUANTIDADE
                     while (true) {
+                        String entradaQtd = JOptionPane.showInputDialog("QUANTIDADE DE SAÍDA:");
 
-                        try {
+                        int qtdValidada = parseEValidarQuantidade(entradaQtd);
 
-                            quantidadeSaida = Integer.parseInt(
-                                    JOptionPane.showInputDialog(
-                                            "QUANTIDADE DE SAÍDA:"
-                                    )
-                            );
-
-                            if (quantidadeSaida > 0) {
-                                break;
-                            }
-
+                        if (qtdValidada > 0) {
+                            quantidadeSaida = qtdValidada;
+                            break;
+                        } else {
                             JOptionPane.showMessageDialog(null,
-                                    "Digite uma quantidade válida!");
-
-                        } catch (NumberFormatException e) {
-
-                            JOptionPane.showMessageDialog(null,
-                                    "Digite apenas números!");
+                                    "QUANTIDADE INVÁLIDA!\n"
+                                    + "Por favor, introduza um número inteiro maior que zero.",
+                                    "Erro de Validação",
+                                    JOptionPane.ERROR_MESSAGE);
                         }
                     }
 
@@ -277,5 +263,28 @@ public class MenuMovimentacao {
 
         } while (novaSaida != null
                 && novaSaida.equalsIgnoreCase("S"));
+    }
+
+    private int parseEValidarQuantidade(String entrada) {
+        // Trava Nº 1: Prevenção contra NullPointerException e NumberFormatException.
+        if (entrada == null || entrada.trim().isEmpty()) {
+            return -1;
+        }
+
+        try {
+            int quantidade = Integer.parseInt(entrada.trim());
+
+            // Trava Nº 2: Regra de Negócio = A quantidade deve ser maior ou igual a zero.
+            if (quantidade >= 0) {
+                return quantidade;
+            } else {
+                return -1;
+            }
+
+        } catch (NumberFormatException e) {
+            /* Trava Nº 3: Interceptar falhas com letras ou números decimais, já que a
+            quantidade de peças de estoque deve ser apenas um número inteiro. */
+            return -1;
+        }
     }
 }
