@@ -1,9 +1,13 @@
-package telas;
+package tela;
 
 import modelo.Produto;
-import javax.swing.*;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 public class MenuRelatorio {
+
+    /** Construtor padrão. Os dados são atribuídos diretamente pelo Main. */
+    public MenuRelatorio() {}
 
     public Produto[] produtos = new Produto[100];
     public int total = 0;

@@ -1,13 +1,18 @@
-package telas;
+package tela;
 
 import modelo.Produto;
 import javax.swing.JOptionPane;
 
+
+
 public class MenuReajustePreco {
+    
+    /** Construtor padrão. Os dados são atribuídos diretamente pelo Main. */
+    public MenuReajustePreco() {}
 
     // ─── ATRIBUTOS ────────────────────────────────────────────────────────────
-    private Produto[] produtos;
-    private int total;
+    public Produto[] produtos;
+    public int total;
 
     // ─── CONSTRUTOR ───────────────────────────────────────────────────────────
     /**

@@ -1,6 +1,6 @@
-package telas;
+package tela;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 import modelo.Produto;
 
@@ -148,14 +148,14 @@ public class MenuProduto {
             }
 
             String confirma = JOptionPane.showInputDialog(
-                    "─────────────────────────────────\n"
-                    + "      CONFIRMA A INCLUSÃO?\n"
-                    + "─────────────────────────────────\n\n"
+                    "==================================\n"
+                    + "           CONFIRMA A INCLUSÃO?\n"
+                    + "=================================\n\n"
                     + "Nome      : " + produto.nome + "\n"
                     + "Preço     : R$ " + String.format("%.2f", produto.preco) + "\n"
                     + "Unidade   : " + produto.unidade + "\n"
                     + "Quantidade: " + produto.quantidade + "\n\n"
-                    + "─────────────────────────────────\n"
+                    + "=================================\n"
                     + "(S/N)"
             );
 

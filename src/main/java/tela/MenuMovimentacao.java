@@ -1,4 +1,4 @@
-package telas;
+package tela;
 
 import javax.swing.JOptionPane;
 
@@ -8,6 +8,9 @@ public class MenuMovimentacao {
 
     public Produto[] produtos;
     public int total;
+
+    /** Construtor padrão. Os dados são atribuídos diretamente pelo Main. */
+    public MenuMovimentacao() {}
 
     public void menu() {
 

@@ -1,11 +1,11 @@
 package app;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
-import telas.MenuMovimentacao;
-import telas.MenuProduto;
-import telas.MenuReajustePreco;
-import telas.MenuRelatorio;
+import tela.MenuMovimentacao;
+import tela.MenuProduto;
+import tela.MenuReajustePreco;
+import tela.MenuRelatorio;
 
 public class Main {
 
@@ -13,8 +13,8 @@ public class Main {
 
         MenuProduto menuProduto = new MenuProduto();
         MenuMovimentacao menuMovimentacao = new MenuMovimentacao();
-        menuMovimentacao.produtos = menuProduto.produtos;
-        menuMovimentacao.total = menuProduto.total;
+        MenuReajustePreco menuReajustePreco = new MenuReajustePreco();
+        MenuRelatorio menuRelatorio = new MenuRelatorio();
 
         String opcao;
 
@@ -29,17 +29,10 @@ public class Main {
                     + "Opção: "
             );
 
-            // Bloco Condicional: Trava de Segurança para proteger contra NullPointerException.
-            
-            /* Resolve o problema no caso de o usuário clicar em "Cancelar", fechar a janela no "X"
-            ou pressionar "ESC", o JOptionPane retorna "null". O "break" atuará para identificar esta
-            ação e interromper o laço imediatamente, permitindo que a Máquina Virtual Java encerre o
-            método main() de forma operacional e controlada. */
-
             if (opcao == null) {
                 break;
             }
-            
+
             switch (opcao) {
                 case "1":
                     menuProduto.menu();
@@ -52,10 +45,16 @@ public class Main {
                     menuMovimentacao.menu();
                     break;
                 case "3":
-                    new MenuReajustePreco(menuProduto.produtos, menuProduto.total).menu();
+                    menuReajustePreco.produtos = menuProduto.produtos;
+                    menuReajustePreco.total = menuProduto.total;
+
+                    menuReajustePreco.menu();
                     break;
                 case "4":
-                    new MenuRelatorio(menuProduto.produtos, menuProduto.total).menu();
+                    menuRelatorio.produtos = menuProduto.produtos;
+                    menuRelatorio.total = menuProduto.total;
+
+                    menuRelatorio.menu();
                     break;
                 case "0":
                     break;
