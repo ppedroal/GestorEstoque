@@ -3,6 +3,8 @@ package tela;
 import modelo.Produto;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class MenuRelatorio {
 
@@ -65,77 +67,69 @@ public class MenuRelatorio {
         Produto[] ordenados = ordenarAlfabeticamente();
 
         StringBuilder lista = new StringBuilder();
-        lista.append("RELATÓRIO: LISTA DE PREÇOS\n\n");
-        lista.append(String.format("%-4s %-20s %-10s %12s%n", "Nº", "PRODUTO", "UNIDADE", "PREÇO"));
-        lista.append("─".repeat(50)).append("\n");
+        lista.append(cabecalho("\nLISTA DE PREÇOS"));
+        lista.append(String.format("%-35s %-6s %12s%n", "PRODUTO", "UND", "PREÇO"));
+        lista.append("─".repeat(56)).append("\n");
 
         for (int i = 0; i < total; i++) {
-            lista.append(String.format("%-4d %-20s %-10s %12s%n",
-                    i + 1, ordenados[i].nome, ordenados[i].unidade,
-                    String.format("R$ %.2f", ordenados[i].preco)));
+            lista.append(String.format("%-35s %-6s %12s%n",
+                    ordenados[i].nome,
+                    ordenados[i].unidade,
+                    String.format("%,.2f", ordenados[i].preco).replace(",", ".")));
         }
 
-        lista.append("─".repeat(50)).append("\n");
-        lista.append("Total de produtos: ").append(total);
-
-        JTextArea area = new JTextArea(lista.toString());
-        area.setFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 12));
-        area.setEditable(false);
-        JOptionPane.showMessageDialog(null, area);
+        exibir(lista.toString());
     }
 
     private void balancoFisico() {
         Produto[] ordenados = ordenarAlfabeticamente();
 
         StringBuilder relatorio = new StringBuilder();
-        relatorio.append("RELATÓRIO: BALANÇO FÍSICO\n\n");
-        relatorio.append(String.format("%-4s %-20s %s%n", "Nº", "PRODUTO", "QUANTIDADE"));
-        relatorio.append("─".repeat(44)).append("\n");
+        relatorio.append(cabecalho("\nBALANÇO FÍSICO"));
+        relatorio.append(String.format("%-35s %-6s %6s%n", "PRODUTO", "UND", "QTDE"));
+        relatorio.append("─".repeat(50)).append("\n");
 
+        int totalItens = 0;
         for (int i = 0; i < total; i++) {
-            relatorio.append(String.format("%-4d %-20s %s%n",
-                    i + 1, ordenados[i].nome,
-                    formatarUnidade(ordenados[i].unidade, ordenados[i].quantidade)));
+            relatorio.append(String.format("%-35s %-6s %6d%n",
+                    ordenados[i].nome,
+                    ordenados[i].unidade,
+                    ordenados[i].quantidade));
+            totalItens += ordenados[i].quantidade;
         }
 
-        relatorio.append("─".repeat(44)).append("\n");
-        relatorio.append("Total de produtos: ").append(total);
+        relatorio.append("─".repeat(50)).append("\n");
+        relatorio.append(String.format("TOTAL DE PRODUTOS NO ESTOQUE : %d%n", totalItens));
 
-        JTextArea area = new JTextArea(relatorio.toString());
-        area.setFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 12));
-        area.setEditable(false);
-        JOptionPane.showMessageDialog(null, area);
+        exibir(relatorio.toString());
     }
 
     private void balancoFinanceiro() {
         Produto[] ordenados = ordenarAlfabeticamente();
 
         StringBuilder relatorio = new StringBuilder();
-        relatorio.append("RELATÓRIO: BALANÇO FINANCEIRO\n\n");
-        relatorio.append(String.format("%-4s %-20s %12s %6s %14s%n",
-                "Nº", "PRODUTO", "PREÇO UNIT.", "QTD", "VALOR TOTAL"));
-        relatorio.append("─".repeat(60)).append("\n");
+        relatorio.append(cabecalho("\nBALANÇO FINANCEIRO"));
+        relatorio.append(String.format("%-20s %-6s %14s %6s %14s%n",
+                "PRODUTO", "UND", "PREÇO UNITÁRIO", "QTDE", "PREÇO TOTAL"));
+        relatorio.append("─".repeat(64)).append("\n");
 
         double totalGeral = 0;
-
         for (int i = 0; i < total; i++) {
             double valorTotal = ordenados[i].preco * ordenados[i].quantidade;
             totalGeral += valorTotal;
-            relatorio.append(String.format("%-4d %-20s %12s %6d %14s%n",
-                    i + 1, ordenados[i].nome,
+            relatorio.append(String.format("%-20s %-6s %14s %6d %14s%n",
+                    ordenados[i].nome,
+                    ordenados[i].unidade,
                     String.format("R$ %.2f", ordenados[i].preco),
                     ordenados[i].quantidade,
                     String.format("R$ %.2f", valorTotal)));
         }
 
         relatorio.append("─".repeat(60)).append("\n");
-        relatorio.append(String.format("%44s %14s%n", "TOTAL:", String.format("R$ %.2f", totalGeral)));
-        relatorio.append("\nTotal de produtos: ").append(total);
+        relatorio.append(String.format("VALOR TOTAL DO ESTOQUE    : %s%n",
+                String.format("R$ %,.2f", totalGeral)));
 
-        JTextArea area = new JTextArea(relatorio.toString());
-        area.setFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 12));
-        area.setEditable(false);
-        JOptionPane.showMessageDialog(null, area);
+        exibir(relatorio.toString());
     }
 
     // Retorna uma cópia do vetor de produtos ordenada alfabeticamente pelo nome.
@@ -158,6 +152,24 @@ public class MenuRelatorio {
         }
 
         return ordenados;
+    }
+
+    /**
+     * Gera o cabeçalho padrão igual ao modelo:
+     * empresa, sistema, data e título do relatório.
+     */
+    private String cabecalho(String titulo) {
+        String data = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        return "SISTEMA DE CONTROLE DE ESTOQUE - "
+                + String.format("%-15s %s%n%n", data, titulo);
+    }
+
+    /** Exibe o relatório em fonte monoespaçada para alinhar as colunas. */
+    private void exibir(String conteudo) {
+        JTextArea area = new JTextArea(conteudo);
+        area.setFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 12));
+        area.setEditable(false);
+        JOptionPane.showMessageDialog(null, area);
     }
 
     private String formatarUnidade(String unidade, int quantidade) {

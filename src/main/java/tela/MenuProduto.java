@@ -166,7 +166,7 @@ public class MenuProduto {
                         "Produto incluído com sucesso!");
             }
             novaInclusao = JOptionPane.showInputDialog("NOVO INCLUSÃO DE PRODUTO? (S/N)");
-        } while (novaInclusao.equals("S"));
+        } while (novaInclusao != null && novaInclusao.equalsIgnoreCase("S"));
     }
 
     public void alterar() {
