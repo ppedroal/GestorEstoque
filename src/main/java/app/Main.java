@@ -7,8 +7,19 @@ import tela.MenuProduto;
 import tela.MenuReajustePreco;
 import tela.MenuRelatorio;
 
+/**
+ * Classe principal do sistema de gestão de estoque.
+ *
+ * @author Pedro Leite
+ * @version 1.0
+ */
 public class Main {
 
+    /**
+     * Inicia a aplicação com o menu principal.
+     *
+     * @param args argumentos da linha de comando (não utilizados)
+     */
     public static void main(String[] args) {
 
         MenuProduto menuProduto = new MenuProduto();

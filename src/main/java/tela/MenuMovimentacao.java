@@ -4,14 +4,26 @@ import javax.swing.JOptionPane;
 
 import modelo.Produto;
 
+/**
+ * Gerencia o menu de movimentação de estoque.
+ *
+ * @author Pedro Leite
+ * @version 1.0
+ */
 public class MenuMovimentacao {
 
+    /** Array de produtos */
     public Produto[] produtos;
+
+    /** Total de produtos cadastrados */
     public int total;
 
-    /** Construtor padrão. Os dados são atribuídos diretamente pelo Main. */
+    /** Construtor padrão */
     public MenuMovimentacao() {}
 
+    /**
+     * Exibe o menu principal de movimentação.
+     */
     public void menu() {
 
         String opcao;
@@ -51,6 +63,9 @@ public class MenuMovimentacao {
         } while (true);
     }
 
+    /**
+     * Registrar entrada de produto no estoque.
+     */
     public void entrada() {
 
         if (total == 0) {
@@ -153,6 +168,9 @@ public class MenuMovimentacao {
                 && novaEntrada.equalsIgnoreCase("S"));
     }
 
+    /**
+     * Registrar saída de produto do estoque.
+     */
     public void saida() {
 
         if (total == 0) {
@@ -268,6 +286,12 @@ public class MenuMovimentacao {
                 && novaSaida.equalsIgnoreCase("S"));
     }
 
+    /**
+     * Valida e converte entrada de quantidade.
+     *
+     * @param entrada valor de quantidade
+     * @return quantidade validada ou -1 se inválida
+     */
     private int parseEValidarQuantidade(String entrada) {
         // Trava Nº 1: Prevenção contra NullPointerException e NumberFormatException.
         if (entrada == null || entrada.trim().isEmpty()) {

@@ -4,11 +4,23 @@ import javax.swing.JOptionPane;
 
 import modelo.Produto;
 
+/**
+ * Gerencia o menu de administração de produtos.
+ *
+ * @author Pedro Leite
+ * @version 1.0
+ */
 public class MenuProduto {
 
+    /** Array de produtos cadastrados */
     public Produto[] produtos = new Produto[100];
+
+    /** Total de produtos cadastrados */
     public int total = 0;
 
+    /**
+     * Exibe o menu principal de produtos.
+     */
     public void menu() {
         String opcao;
 
@@ -44,6 +56,9 @@ public class MenuProduto {
         } while (true);
     }
 
+    /**
+     * Incluir novo produto no estoque.
+     */
     public void incluir() {
 
         if (total == 100) {
@@ -169,6 +184,9 @@ public class MenuProduto {
         } while (novaInclusao != null && novaInclusao.equalsIgnoreCase("S"));
     }
 
+    /**
+     * Alterar dados de um produto.
+     */
     public void alterar() {
         String novaAlteracao;
 
@@ -246,6 +264,9 @@ public class MenuProduto {
         } while (novaAlteracao != null && novaAlteracao.equalsIgnoreCase("S"));
     }
 
+    /**
+     * Consultar dados de um produto.
+     */
     public void consultar() {
         String novaConsulta;
         do {
@@ -290,6 +311,9 @@ public class MenuProduto {
         } while (novaConsulta != null && novaConsulta.equalsIgnoreCase("S"));
     }
 
+    /**
+     * Excluir um produto ou quantidade do estoque.
+     */
     public void excluir() {
 
         String novaExclusao;
@@ -397,6 +421,13 @@ public class MenuProduto {
         } while (novaExclusao.equalsIgnoreCase("S"));
     }
 
+    /**
+     * Formata a unidade de medida.
+     *
+     * @param unidade código da unidade
+     * @param quantidade valor da quantidade
+     * @return unidade formatada
+     */
     private String formatarUnidade(String unidade, int quantidade) {
         switch (unidade.toUpperCase()) {
             case "KG":
@@ -420,8 +451,12 @@ public class MenuProduto {
 
     // ─── VALIDADORES ──────────────────────────────────────────────────────────
 
-    /* Processar a entrada do usuário, adaptar a formatação, converter para Double
-    e validar se o valor é maior que zero. */
+    /**
+     * Valida e converte entrada de preço.
+     *
+     * @param entrada valor de preço
+     * @return preço validado ou -1.0 se inválido
+     */
     private double parseEValidarPreco(String entrada) {
         // Trava Nº 1: Se o usuário clicar em cancelar na janela ou enviar caractere vazio.
         if (entrada == null || entrada.trim().isEmpty()) {
@@ -449,8 +484,12 @@ public class MenuProduto {
         }
     }
 
-    /* Tratar a entrada do usuário, converter para Inteiro e validar se a
-    quantidade é maior ou igual a zero. */
+    /**
+     * Valida e converte entrada de quantidade.
+     *
+     * @param entrada valor de quantidade
+     * @return quantidade validada ou -1 se inválida
+     */
     private int parseEValidarQuantidade(String entrada) {
         // Trava Nº 1: Prevenção contra NullPointerException e NumberFormatException.
         if (entrada == null || entrada.trim().isEmpty()) {

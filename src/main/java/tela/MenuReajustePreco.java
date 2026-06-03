@@ -3,30 +3,36 @@ package tela;
 import modelo.Produto;
 import javax.swing.JOptionPane;
 
-
-
+/**
+ * Gerencia o menu de reajuste de preços.
+ *
+ * @author Pedro Leite
+ * @version 1.0
+ */
 public class MenuReajustePreco {
-    
-    /** Construtor padrão. Os dados são atribuídos diretamente pelo Main. */
+
+    /** Construtor padrão */
     public MenuReajustePreco() {}
 
-    // ─── ATRIBUTOS ────────────────────────────────────────────────────────────
+    /** Array de produtos */
     public Produto[] produtos;
+
+    /** Total de produtos cadastrados */
     public int total;
 
-    // ─── CONSTRUTOR ───────────────────────────────────────────────────────────
     /**
-     * Recebe os dados do MenuProduto para trabalhar no mesmo array,
-     * evitando dados duplicados ou desatualizados.
+     * Construtor com parâmetros.
+     *
+     * @param produtos array de produtos
+     * @param total quantidade de produtos
      */
     public MenuReajustePreco(Produto[] produtos, int total) {
         this.produtos = produtos;
         this.total = total;
     }
 
-    // ─── MENU PRINCIPAL ───────────────────────────────────────────────────────
     /**
-     * Exibe o menu principal de reajuste em loop até o usuário escolher Retornar.
+     * Exibe o menu principal de reajuste.
      */
     public void menu() {
 
@@ -67,10 +73,8 @@ public class MenuReajustePreco {
         } while (true);
     }
 
-    // ─── SUBROTINA: REAJUSTAR TODOS ───────────────────────────────────────────
     /**
-     * Aplica um mesmo percentual de reajuste em TODOS os produtos cadastrados.
-     * Exibe uma prévia completa antes de confirmar para evitar erros.
+     * Reajustar todos os produtos.
      */
     private void reajustarTodos() {
 
@@ -105,10 +109,10 @@ public class MenuReajustePreco {
         }
     }
 
-    // ─── SUBROTINA: REAJUSTAR INDIVIDUAL ─────────────────────────────────────
     /**
-     * Permite reajustar o preço de um produto específico buscado pelo nome.
-     * Repete o processo até o usuário optar por não reajustar outro produto.
+     * Reajustar produto individual.
+     *
+     * @author Henrique Bento
      */
     private void reajustarIndividual() {
         String novaAlteracao;
@@ -161,9 +165,10 @@ public class MenuReajustePreco {
         } while (novaAlteracao != null && novaAlteracao.equalsIgnoreCase("S"));
     }
 
-    // ─── SUBROTINA: CONSULTAR PREÇOS ──────────────────────────────────────────
     /**
-     * Exibe uma tabela com todos os produtos e seus preços atuais.
+     * Consultar preços atuais.
+     *
+     * @author Henrique Bento
      */
     private void consultarPrecos() {
         StringBuilder lista = new StringBuilder();
@@ -182,10 +187,11 @@ public class MenuReajustePreco {
         JOptionPane.showMessageDialog(null, lista.toString());
     }
 
-    // ─── SUBROTINAS AUXILIARES ────────────────────────────────────────────────
     /**
-     * Verifica se não há produtos cadastrados. Retorna true se estiver vazio
-     * (e já exibe o aviso), false se houver produtos.
+     * Verifica se nenhum produto está cadastrado.
+     *
+     * @return true se nenhum produto cadastrado
+     * @author Henrique Bento
      */
     private boolean nenhumProdutoCadastrado() {
         if (total == 0) {
@@ -198,8 +204,11 @@ public class MenuReajustePreco {
     }
 
     /**
-     * Busca um produto pelo nome (sem diferenciar maiúsculas/minúsculas).
-     * Retorna o índice do produto no array, ou -1 se não encontrar.
+     * Busca produto pelo nome.
+     *
+     * @param nome nome do produto
+     * @return índice do produto ou -1
+     * @author Henrique Bento
      */
     private int buscarProduto(String nome) {
         for (int i = 0; i < total; i++) {
@@ -211,7 +220,10 @@ public class MenuReajustePreco {
     }
 
     /**
-     * Exibe os dados atuais de um produto em uma janela de informação.
+     * Exibir dados do produto.
+     *
+     * @param p produto
+     * @author Henrique Bento
      */
     private void exibirDadosProduto(Produto p) {
         JOptionPane.showMessageDialog(null,
@@ -223,8 +235,11 @@ public class MenuReajustePreco {
     }
 
     /**
-     * Lê e valida o percentual de reajuste digitado pelo usuário.
-     * Retorna Double.MIN_VALUE como sinal de cancelamento (usuário fechou a janela).
+     * Ler e validar percentual.
+     *
+     * @param mensagem mensagem de entrada
+     * @return percentual validado
+     * @author Henrique Bento
      */
     private double lerPercentual(String mensagem) {
         while (true) {
@@ -250,7 +265,12 @@ public class MenuReajustePreco {
     }
 
     /**
-     * Calcula o novo preço aplicando o percentual de reajuste.
+     * Calcular novo preço com reajuste.
+     *
+     * @param precoAtual preço atual
+     * @param percentual percentual de reajuste
+     * @return novo preço calculado
+     * @author Henrique Bento
      */
     private double calcularNovoPreco(double precoAtual, double percentual) {
         return precoAtual * (1 + percentual / 100.0);

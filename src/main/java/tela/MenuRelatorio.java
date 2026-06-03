@@ -6,19 +6,37 @@ import javax.swing.JTextArea;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Gerencia o menu de relatórios.
+ *
+ * @author Pedro Leite
+ * @version 1.0
+ */
 public class MenuRelatorio {
 
-    /** Construtor padrão. Os dados são atribuídos diretamente pelo Main. */
+    /** Construtor padrão */
     public MenuRelatorio() {}
 
+    /** Array de produtos */
     public Produto[] produtos = new Produto[100];
+
+    /** Total de produtos cadastrados */
     public int total = 0;
 
+    /**
+     * Construtor com parâmetros.
+     *
+     * @param produtos array de produtos
+     * @param total quantidade de produtos
+     */
     public MenuRelatorio(Produto[] produtos, int total) {
         this.produtos = produtos;
         this.total = total;
     }
 
+    /**
+     * Exibe o menu principal de relatórios.
+     */
     public void menu() {
 
         if (total == 0) {
@@ -62,7 +80,9 @@ public class MenuRelatorio {
         } while (true);
     }
 
-    // SUB ROTINAS
+    /**
+     * Gerar lista de preços.
+     */
     private void listaDePrecos() {
         Produto[] ordenados = ordenarAlfabeticamente();
 
@@ -81,6 +101,9 @@ public class MenuRelatorio {
         exibir(lista.toString());
     }
 
+    /**
+     * Gerar balanço físico.
+     */
     private void balancoFisico() {
         Produto[] ordenados = ordenarAlfabeticamente();
 
@@ -104,6 +127,9 @@ public class MenuRelatorio {
         exibir(relatorio.toString());
     }
 
+    /**
+     * Gerar balanço financeiro.
+     */
     private void balancoFinanceiro() {
         Produto[] ordenados = ordenarAlfabeticamente();
 
@@ -132,8 +158,11 @@ public class MenuRelatorio {
         exibir(relatorio.toString());
     }
 
-    // Retorna uma cópia do vetor de produtos ordenada alfabeticamente pelo nome.
-    // Não altera o vetor original — a ordem de cadastro é preservada no sistema.
+    /**
+     * Ordenar produtos alfabeticamente.
+     *
+     * @return array ordenado de produtos
+     */
     private Produto[] ordenarAlfabeticamente() {
         Produto[] ordenados = new Produto[total];
 
@@ -155,8 +184,10 @@ public class MenuRelatorio {
     }
 
     /**
-     * Gera o cabeçalho padrão igual ao modelo:
-     * empresa, sistema, data e título do relatório.
+     * Gerar cabeçalho do relatório.
+     *
+     * @param titulo título do relatório
+     * @return cabeçalho formatado
      */
     private String cabecalho(String titulo) {
         String data = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
@@ -164,7 +195,11 @@ public class MenuRelatorio {
                 + String.format("%-15s %s%n%n", data, titulo);
     }
 
-    /** Exibe o relatório em fonte monoespaçada para alinhar as colunas. */
+    /**
+     * Exibir relatório em janela.
+     *
+     * @param conteudo conteúdo a exibir
+     */
     private void exibir(String conteudo) {
         JTextArea area = new JTextArea(conteudo);
         area.setFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 12));
@@ -172,6 +207,14 @@ public class MenuRelatorio {
         JOptionPane.showMessageDialog(null, area);
     }
 
+
+    /**
+     * Formatar unidade de medida.
+     *
+     * @param unidade código da unidade
+     * @param quantidade valor da quantidade
+     * @return unidade formatada
+     */
     private String formatarUnidade(String unidade, int quantidade) {
         switch (unidade.toUpperCase()) {
             case "KG":
